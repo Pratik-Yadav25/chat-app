@@ -4,12 +4,12 @@ import { getFirestore, doc, setDoc, serverTimestamp, updateDoc } from "firebase/
 import { toast } from "react-toastify";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyAi8WH8qB9DtSWCNxcSEPOAQaFGnEPpb_o",
-    authDomain: "chatapp-py.firebaseapp.com",
-    projectId: "chatapp-py",
-    storageBucket: "chatapp-py.appspot.com",
-    messagingSenderId: "669151199302",
-    appId: "1:669151199302:web:2874d29aabf8d6f800a47"
+    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+    authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+    projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+    storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+    appId: import.meta.env.VITE_FIREBASE_APP_ID
 };
 
 const app = initializeApp(firebaseConfig);
