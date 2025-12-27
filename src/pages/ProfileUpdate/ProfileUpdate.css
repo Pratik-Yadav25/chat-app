@@ -1,0 +1,144 @@
+/* Add shared background logic from Chat.css */
+.profile {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* Blurred Background Layer */
+.profile::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url(/src/assets/bgImage.svg) no-repeat center;
+    background-size: cover;
+    filter: blur(25px);
+    transform: scale(1.1);
+    z-index: -1;
+}
+
+/* Apply glassmorphism effect to profile-card */
+.profile-card {
+    position: relative;
+    /* Ensure it appears above the background */
+    z-index: 1;
+    background: rgba(255, 255, 255, 0.1);
+    /* Transparent Glass */
+    backdrop-filter: blur(35px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    border-radius: 15px;
+    padding: 28px 24px 32px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 350px;
+    /* Increased width for better visibility */
+    max-width: 90%;
+    /* Ensure responsiveness */
+}
+
+.profile-back-icon {
+    align-self: flex-start;
+    width: 20px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    filter: invert(1);
+    /* White icon */
+    transition: transform 0.2s;
+}
+
+.profile-back-icon:hover {
+    transform: translateX(-3px);
+}
+
+.profile-avatar-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.profile-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #077EFF;
+}
+
+.profile-avatar-edit {
+    font-size: 12px;
+    color: #eeeeee;
+}
+
+.profile-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.profile-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.profile-field label {
+    font-size: 12px;
+    color: #eeeeee;
+}
+
+.profile-field input,
+.profile-field textarea {
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid #1f2937;
+    background: #001030;
+    color: white;
+    font-size: 13px;
+    outline-color: #077EFF;
+}
+
+.profile-field textarea {
+    resize: none;
+    min-height: 80px;
+}
+
+.profile-save {
+    margin-top: 6px;
+    width: 100%;
+    border: none;
+    background: #936EFF;
+    color: white;
+    padding: 11px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+@media (max-width: 600px) {
+
+    .profile-card {
+        width: 92%;
+        padding: 22px 18px;
+        border: none;
+    }
+
+    .profile-avatar {
+        width: 100px;
+        height: 100px;
+    }
+}

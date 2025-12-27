@@ -1,0 +1,171 @@
+/* --- Global Resets & Body --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* --- Shared Background Logic --- */
+.login,
+.chat {
+    position: relative;
+    min-height: 100vh;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    overflow-y: auto;
+}
+
+/* Blurred Background Layer (Applied to both pages) */
+.login::before,
+.chat::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url(/src/assets/bgImage.svg) no-repeat center;
+    background-size: cover;
+    filter: blur(15px);
+    /* Strong blur for better UI */
+    transform: scale(1.1);
+    /* Prevents white edges */
+    z-index: -1;
+}
+
+.login .logo {
+    width: max(15vw, 150px);
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.3));
+    margin-top: 150px;
+    margin-left: 120px;
+}
+
+.login-form {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(35px);
+    -webkit-backdrop-filter: blur(30px);
+    padding: 30px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border-radius: 15px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    width: 380px;
+}
+
+.login-form h2 {
+    font-weight: 600;
+    color: white;
+}
+
+.form-input {
+    padding: 12px 15px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    outline-color: #936EFF;
+    font-size: 15px;
+}
+
+.login-form button {
+    padding: 12px;
+    background-color: #936EFF;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.login-form button:hover {
+    background-color: #936EFF;
+    transform: translateY(-1px);
+}
+
+.login-terms {
+    display: flex;
+    gap: 8px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.login-toggle {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.login-toggle span {
+    font-weight: 600;
+    color: #4da3ff;
+    cursor: pointer;
+}
+
+
+.chat-container {
+    width: min(1100px, 100% - 32px);
+    height: 85vh;
+    background: rgba(82, 105, 151, 0.3);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(35px);
+    display: flex;
+    border-radius: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-top: 3px solid rgba(255, 255, 255, 0.25);
+    overflow: hidden;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), inset 0 0 40px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 900px) {
+    .chat-container {
+        display: flex;
+        width: 100%;
+        height: 100vh;
+        height: 100svh;
+        border-radius: 0;
+        border: none;
+    }
+
+    .chat-container .ls,
+    .chat-container .chat-box,
+    .chat-container .rs {
+        display: none;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    /* VIEW: LIST -> Show LeftSidebar */
+    .chat-container.view-list .ls {
+        display: flex;
+        animation: fadeIn 0.4s ease;
+    }
+
+    /* VIEW: CHAT -> Show ChatBox */
+    .chat-container.view-chat .chat-box {
+        display: flex;
+        animation: fadeIn 0.4s ease;
+    }
+
+    /* VIEW: PROFILE -> Show RightSidebar */
+    .chat-container.view-profile .rs {
+        display: flex;
+        animation: fadeIn 0.4s ease;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
