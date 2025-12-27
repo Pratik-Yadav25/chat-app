@@ -12,27 +12,24 @@ import "react-toastify/dist/ReactToastify.css";
 const App = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const { loadUserData } = useContext(AppContext);
+    const { userData, loading } = useContext(AppContext);
+    const hasNavigated = React.useRef(false);
 
     useEffect(() => {
-        const unsub = onAuthStateChanged(auth, async (user) => {
-            if (user) {
+        if (loading) return;
 
-                await loadUserData(user.uid);
-
-
-                if (location.pathname === "/") {
-                    navigate("/chat", { replace: true });
-                }
-            } else {
-
-                if (location.pathname !== "/") {
-                    navigate("/", { replace: true });
-                }
+        if (userData) {
+            if (location.pathname === "/") {
+                navigate("/chat", { replace: true });
             }
-        });
-        return () => unsub();
-    }, [loadUserData, navigate, location.pathname]);
+        } else {
+            if (location.pathname !== "/") {
+                navigate("/", { replace: true });
+            }
+        }
+    }, [userData, loading, navigate, location.pathname]);
+
+    if (loading) return null;
 
     return (
         <>

@@ -14,6 +14,7 @@ const AppContextProvider = ({ children }) => {
   const [messagesId, setMessagesId] = useState(null);
   const [chatsData, setChatsData] = useState([]);
   const [chatVisible, setChatVisible] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const loadUserData = async (uid) => {
     try {
@@ -82,10 +83,10 @@ const AppContextProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         await loadUserData(user.uid);
-
       } else {
         setUserData(null);
       }
+      setLoading(false);
     });
     return () => unsubscribe();
   }, []);
@@ -98,7 +99,8 @@ const AppContextProvider = ({ children }) => {
       messagesId, setMessagesId,
       chatsData, setChatsData,
       loadUserData,
-      chatVisible, setChatVisible
+      chatVisible, setChatVisible,
+      loading, setLoading
     }}>
       {children}
     </AppContext.Provider>

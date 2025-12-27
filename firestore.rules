@@ -3,23 +3,19 @@ service cloud.firestore {
   match /databases/{database}/documents {
 
     // 1. Users Collection
-    // - Anyone authenticated can read user profiles
-    // - Only the owner can write to their own profile
     match /users/{userId} {
       allow read: if request.auth != null;
       allow write: if request.auth != null && request.auth.uid == userId;
     }
 
     // 2. Chats Collection
-    // - Only the owner can read their own chat list
-    // - Authenticated users can write (to update receiver's chat summary)
+    // Senders need to read/write receiver documents to update chat metadata
     match /chats/{userId} {
-      allow read: if request.auth != null && request.auth.uid == userId;
-      allow write: if request.auth != null; 
+      allow read, write: if request.auth != null;
     }
 
     // 3. Messages Collection
-    // - Only participants of the chat (UID in document ID) can read/write
+    // Security check based on the concatenated UID in the document ID
     match /messages/{messageId} {
       allow read, write: if request.auth != null && messageId.contains(request.auth.uid);
     }
