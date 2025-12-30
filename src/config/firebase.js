@@ -30,7 +30,7 @@ export const signup = async (username, email, password) => {
             avatar: "",
 
             name: username,
-            bio: "Hey, I am using ChatAPP",
+            bio: "Hey, I am using QuickChat!",
             lastSeen: serverTimestamp(),
             updatedAt: serverTimestamp()
         });
